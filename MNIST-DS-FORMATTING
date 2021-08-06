@@ -1,0 +1,37 @@
+train_data = csvread('/Users/apple/Documents/MSCPROJ/mnist/mnist_train.csv');
+tTrainCSV = (train_data(1:7591,1));
+TI= transpose(train_data(:,2:785));
+
+z = zeros(7591,4);
+for i=1:7591
+    if tTrainCSV(i) == 0
+        index =4;
+    else
+        index = tTrainCSV(i);
+    end
+    z(i,index) = 1;
+end
+z=transpose(z);
+ds = [z;TI];
+
+csvwrite('mtrain.csv',ds);
+
+%%%%%%%%%%%%%TEST%%%%%%%%%%%%%
+
+test_data = csvread('/Users/apple/Documents/MSCPROJ/mnist/mnist_test.csv');
+TSTI = transpose(test_data(:,2:785));
+tTest= test_data(:,1);
+
+Y = zeros(401,4);
+for i=1:401
+    if tTest(i) == 0
+        index =4;
+    else
+        index = tTest(i);
+    end
+    Y(i,index) = 1;
+end
+Y=transpose(Y);
+dstest = [Y;TSTI];
+
+csvwrite('mtest.csv',dstest);
